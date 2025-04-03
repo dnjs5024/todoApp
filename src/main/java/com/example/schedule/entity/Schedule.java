@@ -3,6 +3,8 @@ package com.example.schedule.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "schedule")
@@ -22,6 +24,9 @@ public class Schedule extends DateEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "schedule" ,cascade = CascadeType.REMOVE)
+    private List<Comment> comment; // 컬럼생성이아니라 댓글 테이블과 연관된 제약 조건 생성
 
     //생성자
     public Schedule() {
