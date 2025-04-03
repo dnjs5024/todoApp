@@ -1,5 +1,6 @@
 package com.example.schedule.serviceimpl;
 
+import com.example.schedule.config.PasswordEncoder;
 import com.example.schedule.dto.user.*;
 import com.example.schedule.entity.User;
 import com.example.schedule.exception.RuntimeCustomException;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    //비밀번호 암호화
+    private final PasswordEncoder passwordEncoder;
+
     /**
      * 유저 정보 저장하는 메소드
      *
@@ -29,7 +33,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<UserSignUpResponseDto> save(UserSignUpRequestDto requestDto) {
 
-        User user = new User(requestDto.getName(), requestDto.getEmail(), requestDto.getPassword());
+        User user = new User(
+                requestDto.getName(),
+                requestDto.getEmail(),
+                passwordEncoder.encode(requestDto.getPassword()));//비밀번호 암호화 저장
+
         User saveData = userRepository.save(user);
 
         return new ResponseEntity<>(new UserSignUpResponseDto(saveData.getName(), saveData.getEmail()), HttpStatus.OK);
@@ -46,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<String> updateUser(UserUpdateRequestDto requestDto, long id) {
 
-        User user = userRepository.findByIdOrElseThrow(id);//영속성
+        User user = userRepository.findByIdOrElseThrow(id);
 
         user.setEmail(requestDto.getEmail());
         user.setName(requestDto.getName());
@@ -87,7 +95,8 @@ public class UserServiceImpl implements UserService {
     public UserSignInResponseDto login(String email, String password) {
         //이메일 체크 1. 에러메시지  2. 필드 이름
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeCustomException(ErrorEnum.EMAIL_MISS.getMessage(), "email"));
-        if (!user.getPassword().equals(password))
+
+        if (!passwordEncoder.matches(password, user.getPassword()))//1. 입력한 비번 2. db에서 암호화 저장한 비번
             //비번틀리면 오류 1. 에러메시지  2. 필드 이름
             throw new RuntimeCustomException(ErrorEnum.PASSWORD_MISS.getMessage(), "password");
         return new UserSignInResponseDto(

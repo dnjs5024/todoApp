@@ -78,7 +78,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ResponseEntity<String> updateSchedule(ScheduleUpdateRequestDto requestDto, long scheduleId) {
 
-        //영속성
+
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
 
         schedule.setContent(requestDto.getContent());
