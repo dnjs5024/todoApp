@@ -1,10 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.schedule.ScheduleFindResponseDto;
-import com.example.schedule.dto.user.UserFindResponseDto;
-import com.example.schedule.dto.user.UserSignUpRequestDto;
-import com.example.schedule.dto.user.UserSignUpResponseDto;
-import com.example.schedule.dto.user.UserUpdateRequestDto;
+import com.example.schedule.dto.user.*;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -17,4 +13,6 @@ public interface UserService {
     ResponseEntity<List<UserFindResponseDto>> findAll();
 
     void delete(long id);
+
+    UserSignInResponseDto login(String email,String password);
 }

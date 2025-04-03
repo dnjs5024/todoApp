@@ -5,13 +5,13 @@ import lombok.Getter;
 @Getter
 public class UserUpdateResponseDto {
 
-    private final String userName;
+    private final String name;
 
-    private final String userEmail;
+    private final String email;
 
     public UserUpdateResponseDto(String userName, String userEmail) {
-        this.userName = userName;
-        this.userEmail = userEmail;
+        this.name = userName;
+        this.email = userEmail;
     }
 
 }

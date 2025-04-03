@@ -42,12 +42,12 @@ public class ScheduleController {
      * @param scheduleId
      */
     @DeleteMapping("/v1/schedule/{scheduleId}")
-    public void deleteSchedule(@PathVariable long scheduleId) {
+    public void delete(@PathVariable long scheduleId) {
         scheduleService.delete(scheduleId);
     }
 
     @PatchMapping("/v1/schedule/{scheduleId}")
-    public ResponseEntity<String> updateSchedule(
+    public ResponseEntity<String> update(
             @PathVariable long scheduleId,
             @RequestBody ScheduleUpdateRequestDto requestDto
     ) {

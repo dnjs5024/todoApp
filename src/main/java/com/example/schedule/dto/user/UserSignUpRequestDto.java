@@ -1,17 +1,17 @@
 package com.example.schedule.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class UserSignUpRequestDto {
 
-    private final String userName;
+    private final String name;
 
-    private final String userEmail;
+    private final String email;
 
-    public UserSignUpRequestDto(String userName, String userEmail) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-    }
+    private final String password;
+
 
 }

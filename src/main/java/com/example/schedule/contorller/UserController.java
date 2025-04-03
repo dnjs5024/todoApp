@@ -1,6 +1,5 @@
 package com.example.schedule.contorller;
 
-import com.example.schedule.dto.schedule.ScheduleFindResponseDto;
 import com.example.schedule.dto.user.UserFindResponseDto;
 import com.example.schedule.dto.user.UserSignUpRequestDto;
 import com.example.schedule.dto.user.UserSignUpResponseDto;
@@ -31,8 +30,11 @@ public class UserController {
         return userService.save(requestDto);
     }
 
+
+
+
     @PatchMapping("/v1/user/{id}")
-    public ResponseEntity<String> updateUser(
+    public ResponseEntity<String> update(
             @RequestBody UserUpdateRequestDto requestDto,
             @PathVariable long id
     ) {
@@ -50,7 +52,7 @@ public class UserController {
      * @param id
      */
     @DeleteMapping("/v1/user/{id}")
-    public void deleteUser(@PathVariable long id) {
+    public void delete(@PathVariable long id) {
         userService.delete(id);
     }
 

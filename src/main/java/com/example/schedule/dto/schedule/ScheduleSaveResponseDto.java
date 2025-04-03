@@ -5,16 +5,16 @@ import lombok.Getter;
 @Getter
 public class ScheduleSaveResponseDto {
 
-    private final Long userId;
+    private final Long id;
 
-    private final String scheduleTitle;
+    private final String title;
 
-    private final String scheduleContent;
+    private final String content;
 
     public ScheduleSaveResponseDto(Long userId, String scheduleTitle, String scheduleContent) {
-        this.userId = userId;
-        this.scheduleTitle = scheduleTitle;
-        this.scheduleContent = scheduleContent;
+        this.id = userId;
+        this.title = scheduleTitle;
+        this.content = scheduleContent;
     }
 
 }

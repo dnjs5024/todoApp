@@ -18,21 +18,25 @@ public class User extends DateEntity {
     @Column
     private String email;
 
+    @Column(nullable = false)
+    private String password;
+
     //기본 생성자
     public User() {
 
     }
 
-    public User(String userName, String userEmail) {
+    public User(String userName, String userEmail, String password) {
         this.name = userName;
+        this.email = userEmail;
+        this.password = password;
+    }
+
+    public void setEmail(String userEmail) {
         this.email = userEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String userName) {
+        this.name = userName;
     }
 }

@@ -13,11 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class UserFindResponseDto {
 
-    private final String userName;
+    private final String name;
 
-    private final String userEmail;
+    private final String email;
 
-    private final Long userId;
+    private final Long id;
 
     public static List<UserFindResponseDto> toDto(List<User> user) {
         List<UserFindResponseDto> resultList = new ArrayList<>();
