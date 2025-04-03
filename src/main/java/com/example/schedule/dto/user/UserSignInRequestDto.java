@@ -1,5 +1,6 @@
 package com.example.schedule.dto.user;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,10 +8,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UserSignInRequestDto {
 
-    private final String name;
-
+    @NotBlank
     private final String email;
 
+    @NotBlank
     private final String password;
 
 

@@ -8,6 +8,7 @@ import com.example.schedule.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,7 @@ public class UserLoginController {
 
     @PostMapping("/login")
     public String signInController(
-            @ModelAttribute UserSignInRequestDto requestDto,
+            @ModelAttribute @Valid UserSignInRequestDto requestDto,
             HttpServletRequest servletRequest
     ) {
 
