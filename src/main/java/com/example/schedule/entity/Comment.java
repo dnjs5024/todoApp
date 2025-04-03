@@ -19,7 +19,7 @@ public class Comment extends DateEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "schedule_id")
     private Schedule schedule;
 
@@ -32,5 +32,8 @@ public class Comment extends DateEntity {
 
     public Comment() {
 
+    }
+    public void setContent(String content) {
+        this.content = content;
     }
 }

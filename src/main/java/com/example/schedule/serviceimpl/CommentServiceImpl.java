@@ -27,13 +27,12 @@ public class CommentServiceImpl implements CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
 
-
     /**
-     * 일정 저장하는 메소드
+     * 댓글 저장하는 메소드
      *
-     * @param requestDto 일정 제목, 내용 ,작성한 유저 아이디 받음
+     * @param requestDto 댓글 내용 ,작성한 유저 아이디 받음
      * @param scheduleId
-     * @return 저장한 일정 아이디 , 제목 , 내용 상태코드와 같이 반환
+     * @return 저장한 댓글 아이디 ,수정일 ,만들날짜 , 내용 상태코드와 같이 반환
      */
     @Override
     public ResponseEntity<CommentSaveResponseDto> save(CommentSaveRequestDto requestDto, Long scheduleId) {
@@ -69,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * 모든 일정조회해주는 메소드
+     * 모든 댓글조회해주는 메소드
      *
      * @return 쿼리 조회 결과를 List에 담아서 상태코드와 같이 리턴
      */
@@ -79,20 +78,20 @@ public class CommentServiceImpl implements CommentService {
 
     }
 
-
     /**
-     * 일정 아이디 받아서 수정해주는 메소드
+     * 댓글 아이디 받아서 수정해주는 메소드
      *
-     * @param requestDto 내용, 제목 받음
-     * @param commentId  일정 아이디
+     * @param requestDto 내용 받음
+     * @param commentId  댓글 아이디
      * @return 상태코드 200 리턴
      */
     @Transactional
     @Override
     public ResponseEntity<String> update(CommentUpdateRequestDto requestDto, long commentId) {
 
-
         Comment comment = commentRepository.findByIdOrElseThrow(commentId);
+
+        comment.setContent(requestDto.getContent());//댓글 내용 업데이트
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
