@@ -7,6 +7,7 @@ import com.example.schedule.dto.schedule.ScheduleUpdateRequestDto;
 import com.example.schedule.service.ScheduleService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,10 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/schedule")
+@RequiredArgsConstructor
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
-
-    public ScheduleController(ScheduleService scheduleService) {
-        this.scheduleService = scheduleService;
-    }
 
     /**
      * 저장

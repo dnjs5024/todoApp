@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ResponseEntity<String> updateUser(UserUpdateRequestDto requestDto, long id) {
 
-        User user = userRepository.findByIdOrElseThrow(id);//영속성
+        User user = userRepository.findByIdOrElseThrow(id);
 
         user.setEmail(requestDto.getEmail());
         user.setName(requestDto.getName());
