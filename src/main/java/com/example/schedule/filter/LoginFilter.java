@@ -42,6 +42,7 @@ public class LoginFilter implements Filter {
             // 로그인하지 않은 사용자인 경우
             if (session == null || session.getAttribute(Const.LOGIN_USER) == null) {
                 httpResponse.sendRedirect("/login");
+                return;// doFilter 실행 x
             }
 
         }

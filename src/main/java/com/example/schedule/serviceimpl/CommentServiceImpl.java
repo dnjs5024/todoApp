@@ -34,12 +34,15 @@ public class CommentServiceImpl implements CommentService {
      * @param scheduleId
      * @return 저장한 댓글 아이디 ,수정일 ,만들날짜 , 내용 상태코드와 같이 반환
      */
+    @Transactional
     @Override
     public ResponseEntity<CommentSaveResponseDto> save(CommentSaveRequestDto requestDto, Long scheduleId) {
 
         User user = userRepository.findByIdOrElseThrow(requestDto.getUserId());
 
         Schedule schedule = scheduleRepository.findByIdOrElseThrow(scheduleId);
+
+        schedule.setCommentCnt(schedule.getCommentCnt() + 1);//댓글 개수 체크
 
         Comment comment = new Comment(requestDto.getContent(), user, schedule);//user, schedule 테이블과 관계 설정
         Comment saveData = commentRepository.save(comment);
@@ -62,6 +65,10 @@ public class CommentServiceImpl implements CommentService {
     public void delete(Long commentId) {
 
         Comment comment = commentRepository.findByIdOrElseThrow(commentId);
+
+        Schedule schedule = scheduleRepository.findByIdOrElseThrow(comment.getSchedule().getId());
+
+        schedule.setCommentCnt(schedule.getCommentCnt() - 1);//댓글 개수 체크
 
         commentRepository.delete(comment);
 
@@ -92,6 +99,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findByIdOrElseThrow(commentId);
 
         comment.setContent(requestDto.getContent());//댓글 내용 업데이트
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -4,6 +4,7 @@ import com.example.schedule.dto.schedule.ScheduleFindResponseDto;
 import com.example.schedule.dto.schedule.ScheduleSaveResponseDto;
 import com.example.schedule.dto.schedule.ScheduleSaveRequestDto;
 import com.example.schedule.dto.schedule.ScheduleUpdateRequestDto;
+import jakarta.validation.constraints.Min;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface ScheduleService {
     ResponseEntity<List<ScheduleFindResponseDto>> findAll();
 
     //업데이트
-    ResponseEntity<String> updateSchedule(ScheduleUpdateRequestDto requestDto, long scheduleId);
+    ResponseEntity<String> update(ScheduleUpdateRequestDto requestDto, long scheduleId);
+
+    ResponseEntity<List<ScheduleFindResponseDto>> findByPage(int size, @Min(value = 1) int page);
 }

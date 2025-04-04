@@ -8,11 +8,13 @@ import java.util.List;
 public interface UserService {
     public ResponseEntity<UserSignUpResponseDto> save(UserSignUpRequestDto requestDto);
 
-    ResponseEntity<String> updateUser(UserUpdateRequestDto requestDto, long id);
+    ResponseEntity<String> update(UserUpdateRequestDto requestDto, long id);
 
     ResponseEntity<List<UserFindResponseDto>> findAll();
 
     void delete(long id);
 
     UserSignInResponseDto login(String email,String password);
+
+    boolean isEmail(String email);
 }

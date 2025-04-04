@@ -39,9 +39,23 @@ public class ScheduleController {
      *
      * @return
      */
-    @GetMapping("/v1/schedule")
+    @GetMapping("/v1/schedules")
     public ResponseEntity<List<ScheduleFindResponseDto>> findAll() {
         return scheduleService.findAll();
+    }
+
+    /**
+     * 페이징으로 스케줄 가져옴
+     * @param  page  기본값 0
+     * @param size 기본값 10 최소 1이상
+     * @return 페이징 범위의 일정들
+     */
+    @GetMapping("/v2/schedules")
+    public ResponseEntity<List<ScheduleFindResponseDto>> findByPage(
+            @RequestParam(defaultValue = "0")  int page,
+            @RequestParam(defaultValue = "10") @Min(value = 1) int size
+    ) {
+        return scheduleService.findByPage(size,page);
     }
 
     /**
@@ -67,7 +81,7 @@ public class ScheduleController {
             @PathVariable @Min(value = 1, message = "1이상 값을 넣어주셈") long scheduleId,
             @RequestBody @Valid ScheduleUpdateRequestDto requestDto
     ) {
-        return scheduleService.updateSchedule(requestDto, scheduleId);
+        return scheduleService.update(requestDto, scheduleId);
     }
 
 }
