@@ -17,6 +17,14 @@ import java.util.Map;
 
 @ControllerAdvice
 public class MyExceptionHandler {
+
+    /**
+     * 에러내용을 클라이언트로 상세하게 보내줌
+     *
+     * @param re 메시지와 오류 필드 아이디 가지고있음
+     * @param hsr 요청 URL 가져오기위해
+     * @return 에러정보와 에러코드 보내줌
+     */
     @ExceptionHandler(RuntimeCustomException.class)//입력이 잘 못된 경우 오류 클라이언트로
     public ResponseEntity<Map<String, Object>> runTimeCustomExceptionHandler(
             RuntimeCustomException re,
@@ -29,14 +37,21 @@ public class MyExceptionHandler {
         errorMap.put("code", ErrorEnum.INPUT_MISS.getCode());//커스텀 에러코드
         errorMap.put("message", ErrorEnum.INPUT_MISS.getMessage());//커스텀 메시지
         errorMap.put("path", hsr.getRequestURI());
-        errorMap.put("fieldErrors",new HashMap<>(Map.of("field",re.getErrorFieldName(),"message",re.getErrorMsg())));
+        errorMap.put("fieldErrors", new HashMap<>(Map.of("field", re.getErrorFieldName(), "message", re.getErrorMsg())));
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     *  에러내용을 클라이언트로 상세하게 보내줌
+     *
+     * @param re 에러메시지 담고있음
+     * @param hsr hsr 요청 URL 가져오기위해
+     * @return 에러정보와 에러코드 보내줌
+     */
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, Object>> responseStatusExceptionHandler(
             ResponseStatusException re,
-            HttpServletRequest hsr){
+            HttpServletRequest hsr) {
         Map<String, Object> errorMap = new HashMap<>();
         errorMap.put("timestamp", LocalDateTime.now());//현재 시간
         errorMap.put("status", HttpStatus.UNAUTHORIZED.value());// 401

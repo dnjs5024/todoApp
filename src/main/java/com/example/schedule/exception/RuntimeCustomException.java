@@ -12,5 +12,4 @@ public class RuntimeCustomException extends RuntimeException{
 
     private String errorFieldName;
 
-
 }
