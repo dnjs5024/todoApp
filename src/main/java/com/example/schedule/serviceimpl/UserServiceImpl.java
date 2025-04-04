@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     @Override
-    public ResponseEntity<String> updateUser(UserUpdateRequestDto requestDto, long id) {
+    public ResponseEntity<String> update(UserUpdateRequestDto requestDto, long id) {
 
         User user = userRepository.findByIdOrElseThrow(id);
 
@@ -94,11 +94,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserSignInResponseDto login(String email, String password) {
         //이메일 체크 1. 에러메시지  2. 필드 이름
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeCustomException(ErrorEnum.EMAIL_MISS.getMessage(), "email"));
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeCustomException(ErrorEnum.EMAIL_MISS.getMessage(),"email"));
 
         if (!passwordEncoder.matches(password, user.getPassword()))//1. 입력한 비번 2. db에서 암호화 저장한 비번
             //비번틀리면 오류 1. 에러메시지  2. 필드 이름
-            throw new RuntimeCustomException(ErrorEnum.PASSWORD_MISS.getMessage(), "password");
+            throw new RuntimeCustomException(ErrorEnum.PASSWORD_MISS.getMessage(),"password");
         return new UserSignInResponseDto(
                 user.getId(),
                 user.getName(),
@@ -106,5 +106,10 @@ public class UserServiceImpl implements UserService {
                 user.getCreatedAt(),
                 user.getUpdatedAt()
         );
+    }
+
+    @Override
+    public boolean isEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 }

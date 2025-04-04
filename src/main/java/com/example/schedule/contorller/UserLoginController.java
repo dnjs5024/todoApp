@@ -23,7 +23,7 @@ public class UserLoginController {
     private final UserService userService;
 
     @GetMapping("/home")
-    public String loginController() {
+    public String homeController() {
         return "/home";
     }
 
@@ -32,6 +32,12 @@ public class UserLoginController {
         return "/login";
     }
 
+    /**
+     * 로그인 컨트롤러 이메일 아이디 가져와서 디비에 존재하는지 비번 맞는지 체크
+     * @param requestDto 유저 이메일 이름 받음
+     * @param servletRequest 세션다루기 위한
+     * @return 홈화면으로 페이지 이동
+     */
     @PostMapping("/login")
     public String signInController(
             @ModelAttribute @Valid UserSignInRequestDto requestDto,
@@ -47,10 +53,14 @@ public class UserLoginController {
 
         session.setAttribute(Const.LOGIN_USER, responseDto);
 
-        return "/home";
+        return "redirect:home";
     }
 
-
+    /**
+     * 로그아웃 세션 삭제함
+     * @param servletRequest 세션 다루기 위해서
+     * @return 다시 로그인 페이지로 이동
+     */
     @GetMapping("/logout")
     public String logout(HttpServletRequest servletRequest) {
         HttpSession session = servletRequest.getSession(false);
@@ -58,7 +68,7 @@ public class UserLoginController {
             session.invalidate(); // 해당 세션(데이터)을 삭제한다.
         }
 
-        return "login";
+        return "redirect:login";
     }
 
 

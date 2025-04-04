@@ -1,5 +1,6 @@
 package com.example.schedule.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -13,12 +14,15 @@ public class User extends DateEntity {
     private Long id;
 
     @Column
+    @Nullable
     private String name;
 
-    @Column
+    @Column(unique = true)
+    @Nullable
     private String email;
 
     @Column(nullable = false)
+    @Nullable
     private String password;
 
     //기본 생성자
